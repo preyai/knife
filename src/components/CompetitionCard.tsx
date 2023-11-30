@@ -14,24 +14,53 @@ import {
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
+import JudgeModal from './JudgeModal';
+import { useState } from 'react';
+import { Judge } from '../types';
+import CompetitionProgramPopup from './CompetitionProgramPopup';
+import { useNavigate } from 'react-router-dom';
 
 
 const CompetitionCard = () => {
+  const [openJudge, setOpenJudge] = useState(false)
+  const [openProgram, setOpenProgram] = useState(false)
+  const [judges, setJudges] = useState<Judge[]>([
+    {
+      id: "1",
+      name: "Иван Иванов",
+      region: "Москва",
+      category: "BK",
+    },
+    {
+      id: "2",
+      name: "Петр Петров",
+      region: "Санкт-Петербург",
+      category: "1K",
+    },
+    {
+      id: "3",
+      name: "Анна Сидорова",
+      region: "Красноярск",
+      category: "2K",
+    },
+    {
+      id: "4",
+      name: "Дмитрий Кузнецов",
+      region: "Новосибирск",
+      category: "3K",
+    },
+  ])
+  const navigate = useNavigate()
+
   return (
     <>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-
-        </Toolbar>
-      </AppBar>
-      <Box sx={{ minWidth: 275, padding:2 }}>
-        <Card variant="outlined" sx={{ mb: 2 }}>
+      <Box sx={{ minWidth: 275, padding: 2 }}>
+        <Card variant="outlined">
           <CardContent>
+            <Typography variant="h5" component="div">
+              Чемпионат России
+            </Typography>
             <Stack direction="row" spacing={1} alignItems="center">
-              <Chip icon={<CheckCircleIcon />} label="Чемпионат России" color="success" />
               <Typography sx={{ ml: 1 }} color="text.secondary">
                 Даты проведения: 10.02.2023 - 11.03.2023
               </Typography>
@@ -40,9 +69,9 @@ const CompetitionCard = () => {
               Место проведения: г. Краснодар
             </Typography>
             <Stack direction="row" spacing={1}>
-              <Button variant="outlined">судейская коллегия</Button>
-              <Button variant="outlined">программа</Button>
-              <Button variant="outlined">регистрация</Button>
+              <Button variant="outlined" onClick={() => setOpenJudge(true)}>судейская коллегия</Button>
+              <Button variant="outlined" onClick={() => setOpenProgram(true)}>программа</Button>
+              <Button variant="outlined" onClick={() => navigate('/event-register')}>регистрация</Button>
               <Button variant="outlined">протоколы</Button>
               <Button variant="outlined">отчеты</Button>
             </Stack>
@@ -54,6 +83,14 @@ const CompetitionCard = () => {
           </Stack>
         </Card>
       </Box>
+      <JudgeModal
+        open={openJudge}
+        handleClose={() => setOpenJudge(false)}
+        judges={judges}
+        handleEdit={() => { }}
+        handleAdd={() => { }}
+      />
+      <CompetitionProgramPopup open={openProgram} onClose={() => setOpenProgram(false)} />
     </>
   );
 }
