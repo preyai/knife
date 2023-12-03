@@ -5,6 +5,16 @@ export interface Judge {
     category: string; // категория судьи, например "BK", "1K", "2K", "3K"
 }
 
+export interface Competition {
+    id: string;
+    name: string;
+    sportType:string;
+    startDate: string;
+    endDate: string;
+    location: string;
+    judges: Judge[];
+  }
+
 export interface CompetitionEvent {
     ageGroup: string;
     discipline: string;

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel
+  Modal, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent
 } from '@mui/material';
+import { Competition } from '../types';
 
 interface NewEventModalProps {
   open: boolean;
   handleClose: () => void;
+  handleSave: (eventData: Competition) => void;
+  preset?: Competition;
+}
+
+interface NewEventModalState {
+  name: string;
 }
 
 const style = {
@@ -27,12 +26,26 @@ const style = {
   p: 4,
 };
 
-const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose }) => {
-  const [sportType, _setSportType] = useState<string>('');
+const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handleSave, preset }) => {
+  const [name, setName] = useState<string>(preset?.name || '');
+  const [sportType, setSportType] = useState<string>(preset?.sportType || '');
+  const [startDate, setStartDate] = useState<string>(preset?.startDate || '');
+  const [endDate, setEndDate] = useState<string>(preset?.endDate || '');
+  const [location, setLocation] = useState<string>(preset?.location || '');
 
-  // const handleSportTypeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-  //   setSportType(event.target.value as string);
-  // };
+  const handleSportTypeChange = (event: SelectChangeEvent<string>) => {
+    setSportType(event.target.value as string);
+  };
+
+  const onSave = () => {
+    handleSave({ id: `${Math.random() * 1000}`, name, sportType, startDate, endDate, location, judges: [] });
+    setName('');
+    setSportType('');
+    setStartDate('');
+    setEndDate('');
+    setLocation('');
+    handleClose();
+  };
 
   return (
     <Modal
@@ -49,7 +62,10 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose }) => {
           fullWidth
           label="Название"
           margin="normal"
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
+        {/* Остальные поля... */}
         <FormControl fullWidth margin="normal">
           <InputLabel id="sport-type-label">Вид спорта</InputLabel>
           <Select
@@ -57,7 +73,7 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose }) => {
             id="sport-type"
             value={sportType}
             label="Вид спорта"
-            // onChange={handleSportTypeChange}
+            onChange={handleSportTypeChange}
           >
             <MenuItem value="knife-throwing">Спортивное метание ножа</MenuItem>
             {/* Другие виды спорта можно добавить здесь */}
@@ -69,6 +85,8 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose }) => {
           type="date"
           InputLabelProps={{ shrink: true }}
           margin="normal"
+          value={startDate}
+          onChange={e => setStartDate(e.target.value)}
         />
         <TextField
           fullWidth
@@ -76,15 +94,20 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose }) => {
           type="date"
           InputLabelProps={{ shrink: true }}
           margin="normal"
+          value={endDate}
+          onChange={e => setEndDate(e.target.value)}
         />
         <TextField
           required
           fullWidth
           label="Место проведения"
           margin="normal"
+          value={location}
+          onChange={e => setLocation(e.target.value)}
         />
+
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-          <Button variant="contained" color="success" onClick={handleClose}>Создать</Button>
+          <Button variant="contained" color="success" onClick={onSave}>Создать</Button>
           <Button variant="outlined" color="error" onClick={handleClose}>Отмена</Button>
         </Box>
       </Box>
