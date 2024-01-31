@@ -82,6 +82,10 @@ const links = [
         path: '/protocols'
     },
     {
+        text: 'Протокол',
+        path: '/protocol'
+    },
+    {
         text: 'Регистрация',
         path: '/event-register'
     },
@@ -155,7 +159,7 @@ export default function MainWrap({ children }: PropsWithChildren) {
                         <ListItem key={text} disablePadding>
                             <ListItemButton onClick={() => navigate(path)}>
                                 <ListItemIcon>
-                                   <InboxIcon />
+                                    <InboxIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItemButton>

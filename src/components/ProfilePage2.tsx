@@ -85,7 +85,8 @@ const EventsTable: React.FC<EventsTableProps> = ({ events, title }) => {
                         <TableCell>Даты</TableCell>
                         <TableCell>Место</TableCell>
                         <TableCell>Должность</TableCell>
-                        <TableCell>Доступ/Оценка</TableCell>
+                        <TableCell>Доступ</TableCell>
+                        <TableCell>Оценка</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -101,6 +102,8 @@ const EventsTable: React.FC<EventsTableProps> = ({ events, title }) => {
                                 ) : (
                                     event.score
                                 )}
+                            </TableCell>
+                            <TableCell>
                             </TableCell>
                         </TableRow>
                     ))}

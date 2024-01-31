@@ -68,6 +68,10 @@ const RegistrationForm: React.FC = () => {
 
   return (
     <MainWrap>
+      <p>Чемпионат России</p>
+      <p>Вид спорта: спортивное метание ножа (0090001411я)</p>
+      <p>Даты проведения: 10.10.2023 - 12.10.2023</p>
+      <p>Место проведения: Краснодарский край, г. Краснодар</p>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <Typography variant="h5">Регистрация</Typography>
         <TextField

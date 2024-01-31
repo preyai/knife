@@ -71,7 +71,7 @@ const SignIn = () => {
                             Войти
                         </Button>
                         <Typography>
-                            Нет аккаунта? <Link to={'/signup'}>зарегестрироваться</Link>
+                            Нет аккаунта? <Link to={'/signup'}>зарегистрироваться</Link>
                         </Typography>
                     </Box>
                 </Box>

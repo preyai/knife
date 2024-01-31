@@ -69,9 +69,9 @@ const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions 
             <TableCell>Соревнование</TableCell>
             <TableCell>Дата</TableCell>
             <TableCell>Место проведения</TableCell>
-            <TableCell>Предварительный счет</TableCell>
-            <TableCell>Итоговый счет</TableCell>
-            <TableCell>Позиция</TableCell>
+            <TableCell>предварительный этап</TableCell>
+            <TableCell>финал</TableCell>
+            <TableCell>место</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

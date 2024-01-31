@@ -8,12 +8,12 @@ export interface Judge {
 export interface Competition {
     id: string;
     name: string;
-    sportType:string;
+    sportType: string;
     startDate: string;
     endDate: string;
     location: string;
     judges: Judge[];
-  }
+}
 
 export interface CompetitionEvent {
     ageGroup: string;
@@ -31,4 +31,19 @@ export interface JudgeProtocol {
     scores: number[];
     totalPoints: number;
     rank: number;
+}
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+export interface ScoreRow {
+    changeStand: string;
+    athlete: string;
+    seriesScores: (number[] | null)[];
+    totalPoints: number;
+    place: number;
+    rankAchieved: string;
 }

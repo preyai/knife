@@ -28,7 +28,7 @@ const style = {
 
 const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handleSave, preset }) => {
   const [name, setName] = useState<string>(preset?.name || '');
-  const [sportType, setSportType] = useState<string>(preset?.sportType || '');
+  const [sportType, setSportType] = useState<string>(preset?.sportType || 'knife-throwing');
   const [startDate, setStartDate] = useState<string>(preset?.startDate || '');
   const [endDate, setEndDate] = useState<string>(preset?.endDate || '');
   const [location, setLocation] = useState<string>(preset?.location || '');
@@ -40,7 +40,7 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handle
   const onSave = () => {
     handleSave({ id: `${Math.random() * 1000}`, name, sportType, startDate, endDate, location, judges: [] });
     setName('');
-    setSportType('');
+    setSportType('knife-throwing');
     setStartDate('');
     setEndDate('');
     setLocation('');

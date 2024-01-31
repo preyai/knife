@@ -8,6 +8,7 @@ import Event from "./components/Event";
 import RegistrationForm from "./components/RegistrationForm";
 import ProfilePage from "./components/ProfilePage";
 import ProfilePage2 from "./components/ProfilePage2";
+import ScoresTable from "./components/ScoresTable";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/event",
     element: <Event />
+  },
+  {
+    path: "/protocol",
+    element: <ScoresTable />
   },
   {
     path: "/protocols",
