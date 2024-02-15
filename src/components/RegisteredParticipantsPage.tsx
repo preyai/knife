@@ -1,28 +1,7 @@
 import React from 'react';
-import { Box, Table, TableHead, TableBody, TableRow, TableCell, makeStyles, Button, TableContainer, Paper } from '@mui/material';
+import { Box, Table, TableHead, TableBody, TableRow, TableCell, makeStyles, Button, TableContainer, Paper, Stack } from '@mui/material';
 import MainWrap from './MainWrap';
 import { useNavigate } from 'react-router-dom';
-
-// Создаем стили с помощью makeStyles
-// const useStyles = makeStyles((theme) => ({
-//   table: {
-//     minWidth: 600,
-//     backgroundColor: '#f0f0f0',
-//     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-//     borderRadius: 8,
-//   },
-//   cell: {
-//     fontSize: 16,
-//     borderBottom: '1px solid #ddd',
-//     padding: theme.spacing(1),
-//   },
-//   headerCell: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     backgroundColor: '#ddd',
-//     padding: theme.spacing(1),
-//   },
-// }));
 
 const participants = [
     { id: '1', name: 'Иванов Иван', birthDate: '1995-05-10', team: 'Команда 1', rank: '6/дан' },
@@ -40,15 +19,29 @@ const RegisteredParticipantsPage = () => {
         navigate(`/event-register/1`);
     };
 
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText("http://simpl.preyai.ru/event-register/1")
+          .then(() => {
+            // Уведомление или действие после успешного копирования
+            alert("Ссылка скопирована в буфер обмена");
+          })
+          .catch(err => {
+            // Обработка ошибки при копировании
+            console.error('Ошибка при копировании: ', err);
+          });
+      };
+
     return (
-        <MainWrap>
+
             <Box sx={{ padding: 2 }}>
-                <Button variant="contained" color="primary" sx={{ mb: 2, mr: 2 }}>
-                    Добавить участника
-                </Button>
-                <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={handleRegistrationClick}>
-                    Страница регистрации
-                </Button>
+                <Stack spacing={2} direction="row" sx={{mb:2}}>
+                    <Button variant="contained" color="primary" onClick={handleRegistrationClick}>
+                        Добавить участника
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={copyToClipboard}>
+                        Скопировать ссылку
+                    </Button>
+                </Stack>
                 <TableContainer component={Paper}>
                     <Table >
                         <TableHead>
@@ -74,7 +67,7 @@ const RegisteredParticipantsPage = () => {
                     </Table>
                 </TableContainer>
             </Box>
-        </MainWrap>
+
     );
 };
 

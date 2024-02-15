@@ -108,10 +108,10 @@ const ProtocolTableComponent: React.FC = () => (
 
 // Страница протоколов
 const ProtocolPage: React.FC = () => (
-  <MainWrap>
+  <>
     <ProtocolHeaderComponent />
     <ProtocolTableComponent />
-  </MainWrap>
+  </>
 );
 
 export default ProtocolPage;

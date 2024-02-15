@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { PropsWithChildren } from "react";
-import bgr from "../assets/bgr.jpg"
 
 function AuthWrap({ children }: PropsWithChildren) {
     return (

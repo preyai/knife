@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import {
   Modal, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent
 } from '@mui/material';
-import { Competition } from '../types';
+import { Competition } from 'simpl-api';
+import { useAppDispatch } from '../hooks';
+import { createCompetition, updateCompetition } from '../reducers/competitionsReducer';
 
 interface NewEventModalProps {
   open: boolean;
   handleClose: () => void;
-  handleSave: (eventData: Competition) => void;
-  preset?: Competition;
+  curent?: Competition;
 }
 
 interface NewEventModalState {
@@ -26,23 +27,38 @@ const style = {
   p: 4,
 };
 
-const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handleSave, preset }) => {
-  const [name, setName] = useState<string>(preset?.name || '');
-  const [sportType, setSportType] = useState<string>(preset?.sportType || 'knife-throwing');
-  const [startDate, setStartDate] = useState<string>(preset?.startDate || '');
-  const [endDate, setEndDate] = useState<string>(preset?.endDate || '');
-  const [location, setLocation] = useState<string>(preset?.location || '');
+const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, curent }) => {
+  const [name, setName] = useState<string>(curent?.name || '');
+  const [sportType, setSportType] = useState<string>('knife-throwing');
+  const [dateStart, setDateStart] = useState<string>(curent?.dateStart || '');
+  const [dateEnd, setDateEnd] = useState<string>(curent?.dateEnd || '');
+  const [location, setLocation] = useState<string>(curent?.location || '');
+  const dispatch = useAppDispatch();
 
   const handleSportTypeChange = (event: SelectChangeEvent<string>) => {
     setSportType(event.target.value as string);
   };
 
   const onSave = () => {
-    handleSave({ id: `${Math.random() * 1000}`, name, sportType, startDate, endDate, location, judges: [] });
+    if (curent)
+      dispatch(updateCompetition({
+        id: curent._id,
+        name,
+        dateStart,
+        dateEnd,
+        location
+      }))
+    else
+      dispatch(createCompetition({
+        name,
+        dateStart,
+        dateEnd,
+        location
+      }))
     setName('');
     setSportType('knife-throwing');
-    setStartDate('');
-    setEndDate('');
+    setDateStart('');
+    setDateEnd('');
     setLocation('');
     handleClose();
   };
@@ -85,8 +101,8 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handle
           type="date"
           InputLabelProps={{ shrink: true }}
           margin="normal"
-          value={startDate}
-          onChange={e => setStartDate(e.target.value)}
+          value={dateStart}
+          onChange={e => setDateStart(e.target.value)}
         />
         <TextField
           fullWidth
@@ -94,8 +110,8 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handle
           type="date"
           InputLabelProps={{ shrink: true }}
           margin="normal"
-          value={endDate}
-          onChange={e => setEndDate(e.target.value)}
+          value={dateEnd}
+          onChange={e => setDateEnd(e.target.value)}
         />
         <TextField
           required
@@ -107,7 +123,7 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ open, handleClose, handle
         />
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-          <Button variant="contained" color="success" onClick={onSave}>Создать</Button>
+          <Button variant="contained" color="success" onClick={onSave}>{curent? 'Сохранить':'Создать'}</Button>
           <Button variant="outlined" color="error" onClick={handleClose}>Отмена</Button>
         </Box>
       </Box>

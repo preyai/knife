@@ -129,7 +129,7 @@ const Event: React.FC = () => {
     };
 
     return (
-        <MainWrap>
+        <>
             <Grid container spacing={2}>
                 <Grid item xs={8}>
                     <Paper sx={{padding:2}}>
@@ -143,7 +143,7 @@ const Event: React.FC = () => {
                     <ChatComponent />
                 </Grid>
             </Grid>
-        </MainWrap>
+        </>
     );
 };
 

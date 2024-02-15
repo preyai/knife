@@ -16,10 +16,11 @@ import {
   TextField
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { Competition, Judge } from '../types'; // предполагается, что у вас есть определение типа Judge
+import { Judge } from '../types'; // предполагается, что у вас есть определение типа Judge
 import { useAppDispatch } from '../hooks';
 import { useNavigate } from 'react-router-dom';
-import { Label } from '@mui/icons-material';
+import { Competition } from 'simpl-api';
+
 
 interface JudgeModalProps {
   open: boolean;

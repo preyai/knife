@@ -160,13 +160,11 @@ const ProfilePage2: React.FC = () => {
     ];
 
     return (
-        <MainWrap>
             <Box>
                 <Profile {...profileData} />
                 <EventsTable events={upcomingEvents} title="Доступ к соревнованиям:" />
                 <EventsTable events={pastEvents} title="Предыдущее судейство:" />
             </Box>
-        </MainWrap>
     );
 };
 

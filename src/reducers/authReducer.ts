@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { User } from 'simpl-api'
-import client from '../feathers'
 import { RootState } from '../store'
+import { restApi } from '../feathers'
 
 
 
 type AuthState = {
-    isAuth: boolean
+    loading: boolean
     user: User | null
     accessToken: string | null
     error: string | null
 }
 
 const initialState: AuthState = {
-    isAuth: true,
+    loading: true,
     accessToken: null,
     user: null,
     error: null
@@ -24,19 +24,21 @@ export const authenticate = createAsyncThunk(
     'auth/authenticate',
     async ({ email, password }: { email: string, password: string }): Promise<AuthState> => {
         try {
-            const result = await client.authenticate({
+            const result = await restApi.authenticate({
                 strategy: 'local',
                 email,
                 password
             })
 
             return {
+                loading:true,
                 accessToken: result.accessToken,
                 user: result.user,
                 error: null
             }
         } catch (error: any) {
             return {
+                loading:true,
                 accessToken: null,
                 user: null,
                 error: error.message
@@ -49,15 +51,17 @@ export const reAuthenticate = createAsyncThunk(
     'auth/reAuthenticate',
     async (): Promise<AuthState> => {
         try {
-            const result = await client.reAuthenticate()
+            const result = await restApi.reAuthenticate()
 
             return {
+                loading:true,
                 accessToken: result.accessToken,
                 user: result.user,
                 error: null
             }
         } catch (error: any) {
             return {
+                loading:true,
                 accessToken: null,
                 user: null,
                 error: error.message
@@ -69,7 +73,7 @@ export const reAuthenticate = createAsyncThunk(
 
 export const logout = createAsyncThunk(
     'auth/logout',
-    client.logout
+    restApi.logout
 )
 
 const slice = createSlice({
@@ -79,28 +83,28 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(authenticate.fulfilled, (state, action) => {
             if (action.payload.user && action.payload.accessToken) {
-                state.isAuth = true
+                state.loading = true
                 state.accessToken = action.payload.accessToken
                 state.user = action.payload.user
             }
             else {
-                state.isAuth = false
+                state.loading = true
                 state.error = action.payload.error
             }
         })
         builder.addCase(reAuthenticate.fulfilled, (state, action) => {
             if (action.payload.user && action.payload.accessToken) {
-                state.isAuth = true
+                state.loading = true
                 state.accessToken = action.payload.accessToken
                 state.user = action.payload.user
             }
             else {
-                state.isAuth = false
+                state.loading = true
                 state.error = action.payload.error
             }
         })
         builder.addCase(logout.fulfilled, (state) => {
-            state.isAuth = false
+            state.loading = true
             state.accessToken = null
             state.user = null
         })

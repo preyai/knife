@@ -10,6 +10,7 @@ import ProfilePage from "./components/ProfilePage";
 import ProfilePage2 from "./components/ProfilePage2";
 import ScoresTable from "./components/ScoresTable";
 import RegisteredParticipantsPage from "./components/RegisteredParticipantsPage";
+import CompetitionPage from "./components/CompetitionPage";
 
 const router = createBrowserRouter([
   {
@@ -17,16 +18,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path:"/",
-        element: <SignIn />
-      },
-      {
-        path: "/signin",
-        element: <SignIn />
-      },
-      {
-        path: "/signup",
-        element: <SignUp />
+        path: "/",
+        element: <Event />
       },
       {
         path: "/competitions",
@@ -45,10 +38,6 @@ const router = createBrowserRouter([
         element: <ProtocolPage />
       },
       {
-        path: "/event-register/1",
-        element: <RegistrationForm />
-      },
-      {
         path: '/lk1',
         element: <ProfilePage />
       },
@@ -59,10 +48,25 @@ const router = createBrowserRouter([
       {
         path: '/registered-participants/:id',
         element: <RegisteredParticipantsPage />
+      },
+      {
+        path: "/competition/:id",
+        element: <CompetitionPage />
       }
     ]
   },
-
+  {
+    path: "/signin",
+    element: <SignIn />
+  },
+  {
+    path: "/signup",
+    element: <SignUp />
+  },
+  {
+    path: "/event-register/1",
+    element: <RegistrationForm />
+  },
 ]);
 
 export default router

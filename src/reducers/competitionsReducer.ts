@@ -1,82 +1,103 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Competition } from '../types';
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Competition } from 'simpl-api';
+import { restApi } from '../feathers';
+import { CompetitionData } from 'simpl-api';
 
 interface CompetitionsState {
-    competitions: Competition[];
+    data: Competition[];
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
 }
 
 const initialState: CompetitionsState = {
-    competitions: [
-        {
-            id: "1",
-            name: "Чемпионат России",
-            sportType: "Спортивное метание ножа",
-            startDate: "2023-07-01",
-            endDate: "2023-07-05",
-            location: "г. Москва",
-            judges: [
-                {
-                    id: "j1",
-                    name: "Иван Иванов Иванович",
-                    region: "Москва",
-                    category: "1K"
-                },
-                {
-                    id: "j2",
-                    name: "Мария Петрова Андреевна",
-                    region: "Санкт-Петербург",
-                    category: "1K"
-                },
-                // Другие судьи...
-            ],
-        },
-        {
-            id: "2",
-            name: "Открытый чемпионат",
-            sportType: "Спортивное метание ножа",
-            startDate: "2023-08-15",
-            endDate: "2023-08-20",
-            location: "г. Казань",
-            judges: [
-                {
-                    id: "j3",
-                    name: "Сергей Сергеев Сергеевич",
-                    region: "Казань",
-                    category: "1K"
-                },
-                {
-                    id: "j4",
-                    name: "Елена Васильева Степановна",
-                    region: "Нижний Новгород",
-                    category: "1K"
-                },
-                // Другие судьи...
-            ],
-        },
-    ],
+    data: [],
+    status: 'idle',
+    error: null
 };
+
+// Асинхронные thunks
+export const fetchCompetitions = createAsyncThunk(
+    'competitions/fetchCompetitions',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await restApi.service('competitions').find();
+            return response;
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
+export const createCompetition = createAsyncThunk(
+    'competitions/createCompetition',
+    async (competitionData: CompetitionData, { rejectWithValue }) => {
+        try {
+            const response = await restApi.service('competitions').create(competitionData);
+            return response;
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
+export const deleteCompetition = createAsyncThunk(
+    'competitions/deleteCompetition',
+    async (id: string, { rejectWithValue }) => {
+        try {
+            await restApi.service('competitions').remove(id);
+            return id;
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
+export const updateCompetition = createAsyncThunk(
+    'competitions/updateCompetition',
+    async ({ id, ...competitionData }: { id: string | {}} & Partial<Competition>, { rejectWithValue }) => {
+        try {
+            const response = await restApi.service('competitions').patch(id, competitionData);
+            return response;
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
 
 const competitionsSlice = createSlice({
     name: 'competitions',
     initialState,
-    reducers: {
-        addCompetition: (state, action: PayloadAction<Competition>) => {
-            state.competitions.unshift(action.payload);
-        },
-        deleteCompetition: (state, action: PayloadAction<string>) => {
-            state.competitions = state.competitions.filter(comp => comp.id !== action.payload);
-        },
-        updateCompetition: (state, action: PayloadAction<Competition>) => {
-            const { id } = action.payload;
-            const index = state.competitions.findIndex(comp => comp.id === id);
-            if (index !== -1) {
-                state.competitions[index] = action.payload;
-            }
-        },
-    },
+    reducers: {},
+    extraReducers(builder) {
+        builder
+            // Обработка fetchCompetitions
+            .addCase(fetchCompetitions.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchCompetitions.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.data = action.payload.data || [];
+            })
+            .addCase(fetchCompetitions.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload as string;
+            })
+            // Обработка createCompetition
+            .addCase(createCompetition.fulfilled, (state, action) => {
+                state.data.push(action.payload);
+            })
+            // Обработка deleteCompetition
+            .addCase(deleteCompetition.fulfilled, (state, action) => {
+                state.data = state.data.filter(competition => competition._id !== action.payload);
+            })
+            // Обработка updateCompetition
+            .addCase(updateCompetition.fulfilled, (state, action) => {
+                const index = state.data.findIndex(competition => competition._id === action.payload._id);
+                if (index !== -1) {
+                    state.data[index] = action.payload;
+                }
+            });
+    }
 });
-
-export const { addCompetition, deleteCompetition, updateCompetition } = competitionsSlice.actions;
 
 export default competitionsSlice.reducer;

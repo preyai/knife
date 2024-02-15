@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, CardMedia, Button } from '@mui/material';
 import MainWrap from './MainWrap';
+import { useNavigate } from 'react-router-dom';
 
 interface AthleteProfileProps {
   name: string;
@@ -36,6 +37,7 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({
   region,
   city,
 }) => {
+
   return (
     <Card>
       <Box display="flex">
@@ -61,6 +63,8 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({
 };
 
 const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions }) => {
+  const navigate = useNavigate(); // Хук для навигации
+
   return (
     <Paper sx={{ marginTop: 4 }}>
       <Table>
@@ -86,7 +90,7 @@ const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions 
               <TableCell>{competition.position}</TableCell>
               <TableCell>
                 {competition.location === "Москва" &&
-                  <Button>Перейти</Button>
+                  <Button onClick={()=>navigate('/competition/1')}>Перейти</Button>
                 }
               </TableCell>
             </TableRow>
@@ -129,12 +133,10 @@ const ProfilePage: React.FC = () => {
   ];
 
   return (
-    <MainWrap>
       <Box>
         <AthleteProfile {...athleteProfile} />
         <AthleteCompetitions competitions={competitions} />
       </Box>
-    </MainWrap>
   );
 };
 

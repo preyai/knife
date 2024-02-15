@@ -9,7 +9,8 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Stack
 } from '@mui/material';
 import MainWrap from './MainWrap';
 
@@ -67,7 +68,7 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <Box sx={{padding:2}}>
+    <Box sx={{ padding: 2 }}>
       <p>Чемпионат России</p>
       <p>Вид спорта: спортивное метание ножа (0090001411я)</p>
       <p>Даты проведения: 10.10.2023 - 12.10.2023</p>
@@ -143,12 +144,14 @@ const RegistrationForm: React.FC = () => {
           onChange={handleInputChange}
         />
         {/* Кнопки действий */}
-        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-          отправить заявку
-        </Button>
-        <Button variant="outlined" sx={{ mt: 3, mb: 2 }}>
-          добавить спортсмена
-        </Button>
+        <Stack spacing={2} direction="row">
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            отправить заявку
+          </Button>
+          <Button variant="outlined" sx={{ mt: 3, mb: 2 }}>
+            добавить спортсмена
+          </Button>
+        </Stack>
       </Box>
     </Box>
   );

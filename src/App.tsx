@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { reAuthenticate } from "./reducers/authReducer";
 import { useEffect } from "react";
+import MainWrap from "./components/MainWrap";
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!auth.isAuth)
+    if (!auth.loading && !auth.user)
       navigate('/signin')
   }, [auth])
 
@@ -19,9 +20,9 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <MainWrap>
       <Outlet />
-    </>
+    </MainWrap>
   )
 }
 
