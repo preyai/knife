@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, CardMedia, Button } from '@mui/material';
 import MainWrap from './MainWrap';
 
 interface AthleteProfileProps {
@@ -62,7 +62,7 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({
 
 const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions }) => {
   return (
-    <Paper sx={{marginTop:4}}>
+    <Paper sx={{ marginTop: 4 }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -72,6 +72,7 @@ const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions 
             <TableCell>предварительный этап</TableCell>
             <TableCell>финал</TableCell>
             <TableCell>место</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -83,6 +84,11 @@ const AthleteCompetitions: React.FC<AthleteCompetitionsProps> = ({ competitions 
               <TableCell>{competition.preliminaryScore}</TableCell>
               <TableCell>{competition.finalScore}</TableCell>
               <TableCell>{competition.position}</TableCell>
+              <TableCell>
+                {competition.location === "Москва" &&
+                  <Button>Перейти</Button>
+                }
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -100,7 +106,7 @@ const ProfilePage: React.FC = () => {
     rank: '1-й спортивный разряд',
     country: 'Россия',
     region: 'Рязанская область',
-    city: 'Рязань',    
+    city: 'Рязань',
   };
 
   const competitions = [
@@ -119,7 +125,7 @@ const ProfilePage: React.FC = () => {
       preliminaryScore: 480,
       finalScore: 0,
       position: 9,
-    }    
+    }
   ];
 
   return (

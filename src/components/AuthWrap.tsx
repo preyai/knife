@@ -5,7 +5,7 @@ import bgr from "../assets/bgr.jpg"
 function AuthWrap({ children }: PropsWithChildren) {
     return (
         <Box sx={{
-            backgroundImage: `url(${bgr})`,
+            // backgroundImage: `url(${bgr})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
@@ -13,7 +13,7 @@ function AuthWrap({ children }: PropsWithChildren) {
             display: 'flex',
             alignItems: 'center',
             padding: 4,
-            backgroundColor: "#000000d9",
+            backgroundColor: "#000000b3",
             backgroundBlendMode: 'color',
         }}>
             {children}

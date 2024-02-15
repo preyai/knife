@@ -2,20 +2,26 @@
 import { Button, TextField, Box, Typography, Container, Alert } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthWrap from './AuthWrap';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { authenticate } from '../reducers/authReducer';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setEror] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+    const { user, error } = useAppSelector(store => store.auth)
+
+    useEffect(() => {
+        if (user !== null)
+            navigate("/competitions")
+    }, [user])
 
     const handler = (event: FormEvent) => {
         event.preventDefault();
-        if (password === 'test' && email === 'test')
-            navigate('/competitions');
-        else
-            setEror(true)
+
+        dispatch(authenticate({ email, password }))
     }
 
     return (
@@ -59,8 +65,8 @@ const SignIn = () => {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
-                        {error &&
-                            <Alert severity="error">Неверный логин или пароль</Alert>
+                        {error !== null &&
+                            <Alert severity="error">{error}</Alert>
                         }
                         <Button
                             type="submit"

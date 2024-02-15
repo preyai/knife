@@ -1,24 +1,26 @@
-import { Link } from "react-router-dom"
-
+import { Outlet, useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { reAuthenticate } from "./reducers/authReducer";
+import { useEffect } from "react";
 
 
 function App() {
+  const auth = useAppSelector(store => store.auth)
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!auth.isAuth)
+      navigate('/signin')
+  }, [auth])
+
+  useEffect(() => {
+    dispatch(reAuthenticate());
+  }, [dispatch]);
 
   return (
     <>
-      <Link to={'/signin'}>Авторизация</Link>
-      <br />
-      <Link to={'/competitions'}>Соревнования</Link>
-      <br />
-      <Link to={'/protocols'}>Протоколы</Link>
-      <br />
-      <Link to={'/event-register'}>Регистрация</Link>
-      <br />
-      <Link to={'/event'}>Текущее соревнование</Link>
-      <br />
-      <Link to={'/lk1'}>Кабинет 1</Link>
-      <br />
-      <Link to={'/lk2'}>Кабинет 2</Link>
+      <Outlet />
     </>
   )
 }

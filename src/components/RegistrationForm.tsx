@@ -67,7 +67,7 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <MainWrap>
+    <Box sx={{padding:2}}>
       <p>Чемпионат России</p>
       <p>Вид спорта: спортивное метание ножа (0090001411я)</p>
       <p>Даты проведения: 10.10.2023 - 12.10.2023</p>
@@ -150,7 +150,7 @@ const RegistrationForm: React.FC = () => {
           добавить спортсмена
         </Button>
       </Box>
-    </MainWrap>
+    </Box>
   );
 };
 

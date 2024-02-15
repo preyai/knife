@@ -145,36 +145,37 @@ const SignUp: React.FC = () => {
                     <FormControlLabel value="female" control={<Radio />} label="Женщина" />
                   </RadioGroup>
                 </FormControl>
+                <TextField
+                  required
+                  fullWidth
+                  label="Страна"
+                  margin="normal"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  label="Регион"
+                  margin="normal"
+                  name="region"
+                  value={formData.region}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  label="Город"
+                  margin="normal"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                />
               </>
             }
 
-            <TextField
-              required
-              fullWidth
-              label="Страна"
-              margin="normal"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-            />
-            <TextField
-              required
-              fullWidth
-              label="Регион"
-              margin="normal"
-              name="region"
-              value={formData.region}
-              onChange={handleChange}
-            />
-            <TextField
-              required
-              fullWidth
-              label="Город"
-              margin="normal"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
+
             {/* Выпадающий список для квалификации */}
             {formData.role === "athlete" &&
               <FormControl fullWidth margin="normal">

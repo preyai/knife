@@ -22,7 +22,13 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition, onEdit, 
   const [openJudge, setOpenJudge] = useState(false);
   const [openProgram, setOpenProgram] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const navigate = useNavigate();
+  const [openList, setOpenList] = useState(false);
+  const navigate = useNavigate(); // Хук для навигации
+
+  const handleRegistrationClick = () => {
+    // Перенаправляем пользователя на страницу со списком зарегистрированных участников
+    navigate(`/registered-participants/${competition.id}`);
+  };
 
   return (
     <>
@@ -43,14 +49,15 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition, onEdit, 
             <Stack direction="row" spacing={1}>
               <Button variant="outlined" onClick={() => setOpenJudge(true)}>судейская коллегия</Button>
               <Button variant="outlined" onClick={() => setOpenProgram(true)}>программа</Button>
-              <Button variant="outlined" onClick={() => navigate('/event-register')}>регистрация</Button>
-              <Button variant="outlined">протоколы</Button>
-              <Button variant="outlined">отчеты</Button>
+              <Button variant="outlined" onClick={handleRegistrationClick}>регистрация</Button>
+              {/* <Button variant="outlined" onClick={() => navigate('/event-register')}>спортсмены</Button> */}
+              {/* <Button variant="outlined">протоколы</Button>
+              <Button variant="outlined">отчеты</Button> */}
             </Stack>
           </CardContent>
           <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ pr: 2, pb: 2 }}>
             <Button variant="text" onClick={() => setOpenEdit(true)}>редактировать</Button>
-            <Button variant="text" onClick={()=>onDelete(competition.id)}>удалить</Button>
+            <Button variant="text" onClick={() => onDelete(competition.id)}>удалить</Button>
             <Button variant="text"><SettingsIcon /></Button>
           </Stack>
         </Card>
@@ -59,16 +66,26 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition, onEdit, 
         open={openJudge}
         handleClose={() => setOpenJudge(false)}
         judges={competition.judges}
-        handleEdit={() => { }}
-        handleAdd={() => { }}
+        competition={competition}
+
       />
       <CompetitionProgramPopup open={openProgram} onClose={() => setOpenProgram(false)} />
-      <NewEventModal
-        open={openEdit}
-        handleClose={() => setOpenEdit(false)}
-        handleSave={onEdit}
-        preset={competition}
-      />
+      {openEdit &&
+        <NewEventModal
+          open={openEdit}
+          handleClose={() => setOpenEdit(false)}
+          handleSave={onEdit}
+          preset={competition}
+        />
+      }
+      {openList &&
+        <NewEventModal
+          open={openList}
+          handleClose={() => setOpenList(false)}
+          handleSave={onEdit}
+          preset={competition}
+        />
+      }
     </>
   );
 }

@@ -41,9 +41,6 @@ const CompetitionTable: React.FC<CompetitionTableProps> = ({ events }) => {
                             <TableCell>{event.numberOfTargets}</TableCell>
                             <TableCell>{event.numberOfParticipants}</TableCell>
                             <TableCell>
-                                <IconButton aria-label="view">
-                                    <VisibilityIcon />
-                                </IconButton>
                                 <IconButton aria-label="edit">
                                     <EditIcon />
                                 </IconButton>

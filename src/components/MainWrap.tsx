@@ -18,8 +18,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logout } from '../reducers/authReducer';
 
 const drawerWidth = 240;
 
@@ -74,39 +77,41 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const links = [
     {
-        text: 'соревнования',
+        text: 'Соревнования',
         path: '/competitions'
     },
+    // {
+    //     text: 'Протоколы',
+    //     path: '/protocols'
+    // },
     {
-        text: 'Протоколы',
-        path: '/protocols'
-    },
-    {
-        text: 'Протокол',
+        text: 'Тестовый Протокол',
         path: '/protocol'
     },
+    // {
+    //     text: 'Регистрация',
+    //     path: '/event-register'
+    // },
+    // {
+    //     text: 'Текущее соревнование',
+    //     path: '/event'
+    // },
     {
-        text: 'Регистрация',
-        path: '/event-register'
-    },
-    {
-        text: 'Текущее соревнование',
-        path: '/event'
-    },
-    {
-        text: 'Кабинет 1',
+        text: 'Личный кабинет',
         path: '/lk1'
     },
-    {
-        text: 'Кабинет 2',
-        path: '/lk2'
-    }
+    // {
+    //     text: 'Кабинет 2',
+    //     path: '/lk2'
+    // }
 ]
 
 export default function MainWrap({ children }: PropsWithChildren) {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -115,6 +120,10 @@ export default function MainWrap({ children }: PropsWithChildren) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const handleLogout = () => {
+        dispatch(logout())
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -165,6 +174,14 @@ export default function MainWrap({ children }: PropsWithChildren) {
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={handleLogout}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Выйти" />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Drawer>
             <Main open={open}>

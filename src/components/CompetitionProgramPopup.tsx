@@ -19,6 +19,7 @@ interface ProgramDetails {
 }
 
 const CompetitionProgramPopup: React.FC<CompetitionProgramProps> = ({ open, onClose, programDetails }) => {
+    const [open1, setOpen1] = useState(false)
     const [details, setDetails] = useState<ProgramDetails>(programDetails || {
         ageGroup: '',
         discipline: '',
@@ -72,6 +73,15 @@ const CompetitionProgramPopup: React.FC<CompetitionProgramProps> = ({ open, onCl
                         numberOfParticipants: 4,
                     },
                 ]} />
+                <Button sx={{ marginTop: 2 }} onClick={()=>setOpen1(true)}>Добавить</Button>
+                <Dialog open={open1} onClose={() => setOpen1(false)}>
+                    <DialogContent>
+                        <TextField fullWidth label="Возраст"/>
+                        <TextField fullWidth label="Дисциплина"/>
+                        <TextField fullWidth label="Дата"/>
+                        <TextField fullWidth label="Количество целей"/>
+                    </DialogContent>
+                </Dialog>
             </DialogContent>
             <DialogActions>
                 {/* <Button onClick={onClose}>Отмена</Button>

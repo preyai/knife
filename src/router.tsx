@@ -9,48 +9,60 @@ import RegistrationForm from "./components/RegistrationForm";
 import ProfilePage from "./components/ProfilePage";
 import ProfilePage2 from "./components/ProfilePage2";
 import ScoresTable from "./components/ScoresTable";
+import RegisteredParticipantsPage from "./components/RegisteredParticipantsPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    children: [
+      {
+        path:"/",
+        element: <SignIn />
+      },
+      {
+        path: "/signin",
+        element: <SignIn />
+      },
+      {
+        path: "/signup",
+        element: <SignUp />
+      },
+      {
+        path: "/competitions",
+        element: <Competitions />
+      },
+      {
+        path: "/event",
+        element: <Event />
+      },
+      {
+        path: "/protocol",
+        element: <ScoresTable />
+      },
+      {
+        path: "/protocols",
+        element: <ProtocolPage />
+      },
+      {
+        path: "/event-register/1",
+        element: <RegistrationForm />
+      },
+      {
+        path: '/lk1',
+        element: <ProfilePage />
+      },
+      {
+        path: '/lk2',
+        element: <ProfilePage2 />
+      },
+      {
+        path: '/registered-participants/:id',
+        element: <RegisteredParticipantsPage />
+      }
+    ]
   },
-  {
-    path: "/signin",
-    element: <SignIn />
-  },
-  {
-    path: "/signup",
-    element: <SignUp />
-  },
-  {
-    path: "/competitions",
-    element: <Competitions />
-  },
-  {
-    path: "/event",
-    element: <Event />
-  },
-  {
-    path: "/protocol",
-    element: <ScoresTable />
-  },
-  {
-    path: "/protocols",
-    element: <ProtocolPage />
-  },
-  {
-    path: "/event-register",
-    element: <RegistrationForm />
-  },
-  {
-    path: '/lk1',
-    element: <ProfilePage />
-  },
-  {
-    path: '/lk2',
-    element: <ProfilePage2 />
-  }
+
 ]);
 
 export default router

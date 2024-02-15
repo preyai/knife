@@ -10,7 +10,7 @@ const initialState: CompetitionsState = {
     competitions: [
         {
             id: "1",
-            name: "Чемпионат России по плаванию",
+            name: "Чемпионат России",
             sportType: "Спортивное метание ножа",
             startDate: "2023-07-01",
             endDate: "2023-07-05",
@@ -20,20 +20,20 @@ const initialState: CompetitionsState = {
                     id: "j1",
                     name: "Иван Иванов Иванович",
                     region: "Москва",
-                    category: "A"
+                    category: "1K"
                 },
                 {
                     id: "j2",
                     name: "Мария Петрова Андреевна",
                     region: "Санкт-Петербург",
-                    category: "B"
+                    category: "1K"
                 },
                 // Другие судьи...
             ],
         },
         {
             id: "2",
-            name: "Открытый чемпионат по легкой атлетике",
+            name: "Открытый чемпионат",
             sportType: "Спортивное метание ножа",
             startDate: "2023-08-15",
             endDate: "2023-08-20",
@@ -43,13 +43,13 @@ const initialState: CompetitionsState = {
                     id: "j3",
                     name: "Сергей Сергеев Сергеевич",
                     region: "Казань",
-                    category: "A"
+                    category: "1K"
                 },
                 {
                     id: "j4",
                     name: "Елена Васильева Степановна",
                     region: "Нижний Новгород",
-                    category: "B"
+                    category: "1K"
                 },
                 // Другие судьи...
             ],
