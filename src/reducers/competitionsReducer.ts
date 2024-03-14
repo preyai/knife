@@ -42,9 +42,9 @@ export const createCompetition = createAsyncThunk(
 
 export const deleteCompetition = createAsyncThunk(
     'competitions/deleteCompetition',
-    async (id: string, { rejectWithValue }) => {
+    async (id: string | {}, { rejectWithValue }) => {
         try {
-            await restApi.service('competitions').remove(id);
+            await restApi.service('competitions').remove(String(id));
             return id;
         } catch (err) {
             return rejectWithValue(err);
@@ -54,9 +54,9 @@ export const deleteCompetition = createAsyncThunk(
 
 export const updateCompetition = createAsyncThunk(
     'competitions/updateCompetition',
-    async ({ id, ...competitionData }: { id: string | {}} & Partial<Competition>, { rejectWithValue }) => {
+    async ({ id, ...competitionData }: { id: string | {} } & Partial<Competition>, { rejectWithValue }) => {
         try {
-            const response = await restApi.service('competitions').patch(id, competitionData);
+            const response = await restApi.service('competitions').patch(String(id), competitionData);
             return response;
         } catch (err) {
             return rejectWithValue(err);

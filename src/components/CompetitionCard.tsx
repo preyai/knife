@@ -9,6 +9,8 @@ import CompetitionProgramPopup from './CompetitionProgramPopup';
 import { useNavigate } from 'react-router-dom';
 import NewEventModal from './NewEventModal';
 import { Competition } from 'simpl-api';
+import { deleteCompetition } from '../reducers/competitionsReducer';
+import { useAppDispatch } from '../hooks';
 
 
 // Определяем пропсы для CompetitionCard
@@ -23,10 +25,15 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition }) => {
   const [openProgram, setOpenProgram] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const navigate = useNavigate(); // Хук для навигации
+  const dispatch = useAppDispatch();
 
   const handleRegistrationClick = () => {
     // Перенаправляем пользователя на страницу со списком зарегистрированных участников
     navigate(`/registered-participants/${competition._id}`);
+  };
+
+  const handleDeleteClick = () => {
+    dispatch(deleteCompetition(competition._id ))
   };
 
   return (
@@ -56,7 +63,7 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition }) => {
           </CardContent>
           <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ pr: 2, pb: 2 }}>
             <Button variant="text" onClick={() => setOpenEdit(true)}>редактировать</Button>
-            {/* <Button variant="text" onClick={() => onDelete(competition._id)}>удалить</Button> */}
+            <Button variant="text" onClick={handleDeleteClick}>удалить</Button>
           </Stack>
         </Card>
       </Box>
@@ -68,7 +75,7 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition }) => {
 
       />
       <CompetitionProgramPopup open={openProgram} onClose={() => setOpenProgram(false)} />
-       {openEdit &&
+      {openEdit &&
         <NewEventModal
           open={openEdit}
           handleClose={() => setOpenEdit(false)}
