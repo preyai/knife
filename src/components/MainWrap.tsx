@@ -84,10 +84,10 @@ const links = [
     //     text: 'Протоколы',
     //     path: '/protocols'
     // },
-    {
-        text: 'Тестовый Протокол',
-        path: '/protocol'
-    },
+    // {
+    //     text: 'Тестовый Протокол',
+    //     path: '/protocol'
+    // },
     // {
     //     text: 'Регистрация',
     //     path: '/event-register'

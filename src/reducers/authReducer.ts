@@ -31,14 +31,14 @@ export const authenticate = createAsyncThunk(
             })
 
             return {
-                loading:true,
+                loading:false,
                 accessToken: result.accessToken,
                 user: result.user,
                 error: null
             }
         } catch (error: any) {
             return {
-                loading:true,
+                loading:false,
                 accessToken: null,
                 user: null,
                 error: error.message
@@ -54,14 +54,14 @@ export const reAuthenticate = createAsyncThunk(
             const result = await restApi.reAuthenticate()
 
             return {
-                loading:true,
+                loading:false,
                 accessToken: result.accessToken,
                 user: result.user,
                 error: null
             }
         } catch (error: any) {
             return {
-                loading:true,
+                loading:false,
                 accessToken: null,
                 user: null,
                 error: error.message
@@ -83,28 +83,28 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(authenticate.fulfilled, (state, action) => {
             if (action.payload.user && action.payload.accessToken) {
-                state.loading = true
+                state.loading = false
                 state.accessToken = action.payload.accessToken
                 state.user = action.payload.user
             }
             else {
-                state.loading = true
+                state.loading = false
                 state.error = action.payload.error
             }
         })
         builder.addCase(reAuthenticate.fulfilled, (state, action) => {
             if (action.payload.user && action.payload.accessToken) {
-                state.loading = true
+                state.loading = false
                 state.accessToken = action.payload.accessToken
                 state.user = action.payload.user
             }
             else {
-                state.loading = true
+                state.loading = false
                 state.error = action.payload.error
             }
         })
         builder.addCase(logout.fulfilled, (state) => {
-            state.loading = true
+            state.loading = false
             state.accessToken = null
             state.user = null
         })
