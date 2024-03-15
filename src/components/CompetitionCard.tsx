@@ -1,16 +1,18 @@
-import React from 'react';
 import {
-  Box, Card, CardContent, Typography, Button, Stack
+  Box,
+  Button,
+  Card, CardContent,
+  Stack,
+  Typography
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import JudgeModal from './JudgeModal';
-import { useState } from 'react';
-import CompetitionProgramPopup from './CompetitionProgramPopup';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NewEventModal from './NewEventModal';
 import { Competition } from 'simpl-api';
-import { deleteCompetition } from '../reducers/competitionsReducer';
 import { useAppDispatch } from '../hooks';
+import { deleteCompetition } from '../reducers/competitionsReducer';
+import CompetitionProgramPopup from './CompetitionProgramPopup';
+import JudgeModal from './JudgeModal';
+import NewEventModal from './NewEventModal';
 
 
 // Определяем пропсы для CompetitionCard
@@ -70,7 +72,7 @@ const CompetitionCard: React.FC<CompetitionCardProps> = ({ competition }) => {
       <JudgeModal
         open={openJudge}
         handleClose={() => setOpenJudge(false)}
-        judges={[]}
+        judges={competition.referees}
         competition={competition}
 
       />

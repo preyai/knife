@@ -3626,9 +3626,31 @@ side-channel@^1.0.4, side-channel@^1.0.6:
     get-intrinsic "^1.2.4"
     object-inspect "^1.13.1"
 
-"simpl-api@http://localhost:3030/simpl-api-0.0.0.tgz":
-  version "0.0.0"
-  resolved "http://localhost:3030/simpl-api-0.0.0.tgz#51f4a96a68d56e58ca8e6a1f88920ae9e54d63d2"
+"simpl-api@http://localhost:3030/simpl-api-0.0.1.tgz":
+  version "0.0.1"
+  resolved "http://localhost:3030/simpl-api-0.0.1.tgz#4d66a0659823e8da9269b7a7e34225cf33316de3"
+  dependencies:
+    "@feathersjs/adapter-commons" "^5.0.21"
+    "@feathersjs/authentication" "^5.0.21"
+    "@feathersjs/authentication-client" "^5.0.21"
+    "@feathersjs/authentication-local" "^5.0.21"
+    "@feathersjs/authentication-oauth" "^5.0.21"
+    "@feathersjs/configuration" "^5.0.21"
+    "@feathersjs/errors" "^5.0.21"
+    "@feathersjs/feathers" "^5.0.21"
+    "@feathersjs/koa" "^5.0.21"
+    "@feathersjs/mongodb" "^5.0.21"
+    "@feathersjs/schema" "^5.0.21"
+    "@feathersjs/socketio" "^5.0.21"
+    "@feathersjs/transport-commons" "^5.0.21"
+    "@feathersjs/typebox" "^5.0.21"
+    mongodb "^6.3.0"
+    winston "^3.11.0"
+
+"simpl-api@https://api.skt-event.com/simpl-api-0.0.1.tgz":
+  version "0.0.1"
+  uid "4d66a0659823e8da9269b7a7e34225cf33316de3"
+  resolved "https://api.skt-event.com/simpl-api-0.0.1.tgz#4d66a0659823e8da9269b7a7e34225cf33316de3"
   dependencies:
     "@feathersjs/adapter-commons" "^5.0.21"
     "@feathersjs/authentication" "^5.0.21"

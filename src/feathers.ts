@@ -5,8 +5,8 @@ import authentication from '@feathersjs/authentication-client'
 import { createClient } from 'simpl-api'
 
 
-export const apiPath = 'http://localhost:3030'
-// export const apiPath = 'https://api.simpl.preyai.ru'
+// export const apiPath = 'http://localhost:3030'
+export const apiPath = 'https://api.skt-event.com'
 
 const restConnection = rest(apiPath).fetch(window.fetch.bind(window))
 

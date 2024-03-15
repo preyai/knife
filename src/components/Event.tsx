@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const HeaderComponent: React.FC<HeaderProps> = ({ title, dates }) => (
-    <Typography variant="h4" gutterBottom>
+    <Typography variant="h4" component='div' gutterBottom>
         {title}
         <Typography variant="subtitle1">{dates}</Typography>
     </Typography>
@@ -22,7 +22,7 @@ interface LocationProps {
 }
 
 const LocationComponent: React.FC<LocationProps> = ({ location }) => (
-    <Typography variant="h6" gutterBottom>
+    <Typography variant="h6" component='div' gutterBottom>
         Место: {location}
     </Typography>
 );

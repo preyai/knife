@@ -24,7 +24,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.20.0",
-    "simpl-api": "http://localhost:3030/simpl-api-0.0.0.tgz",
+    "simpl-api": "https://api.skt-event.com/simpl-api-0.0.1.tgz",
     "socket.io-client": "^4.7.4"
   },
   "devDependencies": {

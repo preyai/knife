@@ -17,10 +17,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <Event />
-      },
+      // {
+      //   path: "/",
+      //   element: <Event />
+      // },
       {
         path: "/competitions",
         element: <Competitions />
